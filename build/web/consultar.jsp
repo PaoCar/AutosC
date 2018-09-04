@@ -59,7 +59,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-12 col-md-3">
                   <h3 class="mb-5">Fabricante</h3>
-                </div>
+                </div>   
               </div>                
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">

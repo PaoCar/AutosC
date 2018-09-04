@@ -6,9 +6,11 @@
 package com.autosconcesionario.ejb;
 
 import com.autosconcesionario.entity.Vehiculos;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,39 @@ public class VehiculosFacade extends AbstractFacade<Vehiculos> implements Vehicu
     public VehiculosFacade() {
         super(Vehiculos.class);
     }
-    
+
+    @Override
+    public void consultarVehiculo(String matricula) {
+        Query q = em.createQuery("SELECT a FROM Vehiculos a where a.vin =:m");
+        q.setParameter("m", matricula);
+    }
+
+    @Override
+    public Vehiculos consultaVehiculo(int matricula) {
+        Query q = em.createQuery("SELECT a FROM Vehiculo a " + "where a.codigoVehiculo=:m");
+        q.setParameter("m", matricula);
+        Vehiculos vehiculoMatricula = (Vehiculos) q.getResultList().get(0);
+        return vehiculoMatricula;
+    }
+
+    @Override
+    public List<String> obtenerFabricantes() {
+
+        Query q = em.createQuery("SELECT a.marca FROM Vehiculo a GROUP BY a.marca");
+        List<String> listaFabricante;
+        listaFabricante = q.getResultList();
+
+        return listaFabricante;
+    }
+
+    @Override
+    public String primerFabricante() {
+
+        Query q = em.createQuery("SELECT a.marca FROM Vehiculo a GROUP BY a.marca");
+        String listaFabricante;
+        listaFabricante = (String) q.getResultList().get(0);
+
+        return listaFabricante;
+    }
+
 }
